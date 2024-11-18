@@ -38,7 +38,7 @@ jobs:
       
       - name: Generate Terraform Graph
         working-directory: infrastructure/terraform
-        run: terraform graph -draw-cycles -type=resources > graph-resources.dot
+        run: terraform graph -draw-cycles > graph-resources.dot
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
