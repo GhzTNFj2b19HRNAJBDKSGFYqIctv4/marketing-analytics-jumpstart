@@ -36,13 +36,24 @@ jobs:
         working-directory: infrastructure/terraform
         run: terraform validate
       
-      - name: Generate Terraform Graph
-        working-directory: infrastructure/terraform
-        run: terraform graph -draw-cycles > graph-resources.dot
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+# Set up and initialize Pluralith
+      - name: Pluralith Init
+        uses: Pluralith/actions/init@v1.4.0
         with:
-          name: terraform-artifacts
-          path: |
-            infrastructure/terraform/graph-resources.dot
+          terraform-path: "infrastructure/terraform"
+          api-key: ${{ secrets.PLURALITH_API_KEY }}
+      
+      # Run Pluralith to generate an infrastructure diagram and comment body
+      - name: Pluralith Run
+        uses: Pluralith/actions/run@v1.4.0
+        with:
+          terraform-command: "plan"
+          terraform-path: "infrastructure/terraform"
+          show-changes: true
+          show-drift: true
+      
+      # Post the generated diagram as a GitHub comment
+      - name: Pluralith Comment
+        uses: Pluralith/actions/comment@v1.4.0
+        with:
+          terraform-path: "infrastructure/terraform"
