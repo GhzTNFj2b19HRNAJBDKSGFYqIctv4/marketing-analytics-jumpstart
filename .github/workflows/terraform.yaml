@@ -36,6 +36,14 @@ jobs:
         working-directory: infrastructure/terraform
         run: terraform validate
 
+      - name: Terraform Plan
+        working-directory: infrastructure
+        run: terraform plan -out=tfplan.binary
+        
+      - name: Generate Terraform Plan JSON
+        working-directory: infrastructure
+        run: terraform show -json tfplan.binary > tfplan.json
+
       - name: Generate Terraform Graph
         working-directory: infrastructure/terraform
         run: terraform graph -draw-cycles > graph.dot
@@ -51,3 +59,4 @@ jobs:
           path: |
             infrastructure/terraform/graph.dot
             infrastructure/terraform/tfstate.json
+            infrastructure/terraform/tfplan.binary
