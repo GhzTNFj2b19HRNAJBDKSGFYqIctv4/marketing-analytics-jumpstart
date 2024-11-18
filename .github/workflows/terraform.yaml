@@ -43,6 +43,8 @@ jobs:
           terraform-path: "infrastructure/terraform"
           api-key: ${{ secrets.PLURALITH_API_KEY }}
           org-id: marketing-analytics-jumpstart
+          project-id: marketing-analytics-jumpstart
+          project-name: marketing-analytics-jumpstart
       
       # Run Pluralith to generate an infrastructure diagram and comment body
       - name: Pluralith Run
