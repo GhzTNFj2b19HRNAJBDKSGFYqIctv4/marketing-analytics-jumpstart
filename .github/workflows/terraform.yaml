@@ -49,5 +49,5 @@ jobs:
         with:
           name: terraform-artifacts
           path: |
-            infrastructure/graph.dot
-            infrastructure/tfstate.json
+            infrastructure/terraform/graph.dot
+            infrastructure/terraform/tfstate.json
