@@ -37,11 +37,11 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        working-directory: infrastructure
+        working-directory: infrastructure/terraform
         run: terraform plan -out=tfplan.binary
         
       - name: Generate Terraform Plan JSON
-        working-directory: infrastructure
+        working-directory: infrastructure/terraform
         run: terraform show -json tfplan.binary > tfplan.json
 
       - name: Generate Terraform Graph
