@@ -36,19 +36,13 @@ jobs:
         working-directory: infrastructure/terraform
         run: terraform validate
       
-      - name: Generate Terraform Plan JSON
-        working-directory: infrastructure/terraform
-        run: terraform show -json tfplan.binary > tfplan.json
-
       - name: Generate Terraform Graph
         working-directory: infrastructure/terraform
-        run: terraform graph -draw-cycles > graph.dot
+        run: terraform graph -draw-cycles -type=resources > graph-resources.dot
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: terraform-artifacts
           path: |
-            infrastructure/terraform/graph.dot
-            infrastructure/terraform/tfstate.json
-            infrastructure/terraform/tfplan.binary
+            infrastructure/terraform/graph-resources.dot
